@@ -45,14 +45,7 @@ class ProductItem extends StatelessWidget {
                   child: DecoratedBox(
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
-                      color: Colors.white,
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black26,
-                          blurRadius: 4,
-                          offset: Offset(2, 2),
-                        ),
-                      ],
+                      color: Colors.white38,
                     ),
                     child: IconButton(
                       onPressed: () {},
