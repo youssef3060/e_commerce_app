@@ -42,9 +42,22 @@ class ProductItem extends StatelessWidget {
                 Positioned(
                   top: 3,
                   right: 3,
-                  child: IconButton(
-                    onPressed: () {},
-                    icon: const Icon(Icons.favorite_border),
+                  child: DecoratedBox(
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Colors.white,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black26,
+                          blurRadius: 4,
+                          offset: Offset(2, 2),
+                        ),
+                      ],
+                    ),
+                    child: IconButton(
+                      onPressed: () {},
+                      icon: const Icon(Icons.favorite_border),
+                    ),
                   ),
                 ),
               ],

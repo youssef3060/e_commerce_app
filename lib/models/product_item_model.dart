@@ -1,5 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
-
 class ProductItemModel {
   final String id;
   final String name;
