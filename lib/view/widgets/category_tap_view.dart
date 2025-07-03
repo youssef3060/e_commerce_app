@@ -11,7 +11,7 @@ class CategoryTapView extends StatelessWidget {
       itemBuilder: (BuildContext context, int index) {
         final category = dummyCategory[index];
         return InkWell(
-          onDoubleTap: () {},
+          onTap: () {},
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 8),
             child: DecoratedBox(
