@@ -1,3 +1,4 @@
+import 'package:e_commerce_app/utils/app_router.dart';
 import 'package:e_commerce_app/view/pages/custom_bottom_navbar.dart';
 import 'package:flutter/material.dart';
 
@@ -18,6 +19,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       home: CustomBottomNavbar(),
+      onGenerateRoute: AppRouter.onGenerateRoute,
     );
   }
 }

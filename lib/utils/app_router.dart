@@ -9,9 +9,20 @@ class AppRouter {
   static Route<dynamic> onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
       case AppRoutes.homeRoute:
-        return MaterialPageRoute(builder: (_) => CustomBottomNavbar());
+        return MaterialPageRoute(
+          builder: (_) => CustomBottomNavbar(),
+          settings: settings,
+        );
       case AppRoutes.productDetailRoute:
-        return MaterialPageRoute(builder: (_) => ProductDetailsPage());
+        return MaterialPageRoute(
+          builder: (_) => ProductDetailsPage(),
+          settings: settings,
+        );
+      default:
+        return MaterialPageRoute(
+          builder: (_) => const Scaffold(body: Center(child: Text('error'))),
+          settings: settings,
+        );
     }
   }
 }
