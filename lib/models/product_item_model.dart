@@ -6,6 +6,7 @@ class ProductItemModel {
   final double price;
   final bool isFavorite;
   final String category;
+  final double averageRate;
 
   ProductItemModel({
     required this.id,
@@ -20,6 +21,7 @@ Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deseru
     required this.price,
     this.isFavorite = false,
     required this.category,
+    this.averageRate = 4.5,
   });
 }
 

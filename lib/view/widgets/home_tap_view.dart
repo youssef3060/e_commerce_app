@@ -1,5 +1,4 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:e_commerce_app/utils/app_router.dart';
 import 'package:e_commerce_app/utils/app_routes.dart';
 
 import 'package:e_commerce_app/view/widgets/prodact_item.dart';
@@ -94,9 +93,10 @@ class HomeTapView extends StatelessWidget {
                   itemBuilder: (context, Index) {
                     return InkWell(
                       onTap: () {
-                        Navigator.of(
-                          context,
-                        ).pushNamed(AppRoutes.productDetailRoute);
+                        Navigator.of(context).pushNamed(
+                          AppRoutes.productDetailRoute,
+                          arguments: state.product[Index].id,
+                        );
                       },
                       child: ProductItem(productItem: state.product[Index]),
                     );

@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:e_commerce_app/models/product_item_model.dart';
+import 'package:e_commerce_app/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class ProductItem extends StatelessWidget {
@@ -27,7 +28,7 @@ class ProductItem extends StatelessWidget {
                         offset: Offset(0, 4),
                       ),
                     ],
-                    color: Colors.grey.shade300,
+                    color: AppColors.grey2,
                   ),
 
                   child: CachedNetworkImage(
