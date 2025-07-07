@@ -17,3 +17,9 @@ final class ProductDetailsError extends ProductDetailsState {
 
   ProductDetailsError({required this.message});
 }
+
+final class QuantityCounterLoaded extends ProductDetailsState {
+  final int value;
+
+  QuantityCounterLoaded({required this.value});
+}

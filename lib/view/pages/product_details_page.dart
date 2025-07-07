@@ -13,6 +13,7 @@ class ProductDetailsPage extends StatelessWidget {
     final size = MediaQuery.of(context).size;
     return BlocBuilder<ProductDetailsCubit, ProductDetailsState>(
       bloc: BlocProvider.of<ProductDetailsCubit>(context),
+      buildWhen: (previous, current) => current is! QuantityCounterLoaded,
       builder: (context, state) {
         if (state is ProductDetailsLoading) {
           return Scaffold(body: Center(child: CircularProgressIndicator()));
@@ -93,7 +94,40 @@ class ProductDetailsPage extends StatelessWidget {
                                   ),
                                 ],
                               ),
-                              Counter(value: 10),
+                              BlocBuilder<
+                                ProductDetailsCubit,
+                                ProductDetailsState
+                              >(
+                                bloc: BlocProvider.of<ProductDetailsCubit>(
+                                  context,
+                                ),
+                                buildWhen: (previous, current) =>
+                                    current is QuantityCounterLoaded ||
+                                    current is ProductDetailsLoaded,
+                                builder: (context, state) {
+                                  if (state is QuantityCounterLoaded) {
+                                    return Counter(
+                                      value: state.value,
+                                      productId: product.id,
+                                      cubit:
+                                          BlocProvider.of<ProductDetailsCubit>(
+                                            context,
+                                          ),
+                                    );
+                                  } else if (state is ProductDetailsLoaded) {
+                                    return Counter(
+                                      value: state.product.quantity,
+                                      productId: product.id,
+                                      cubit:
+                                          BlocProvider.of<ProductDetailsCubit>(
+                                            context,
+                                          ),
+                                    );
+                                  } else {
+                                    return SizedBox.shrink();
+                                  }
+                                },
+                              ),
                             ],
                           ),
                         ],
