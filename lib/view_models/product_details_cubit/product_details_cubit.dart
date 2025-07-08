@@ -28,9 +28,11 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
     final selectedIndex = dummyProduct.indexWhere(
       (item) => item.id == productId,
     );
-    dummyProduct[selectedIndex] = dummyProduct[selectedIndex].copyWith(
-      quantity: dummyProduct[selectedIndex].quantity - 1,
-    );
-    emit(QuantityCounterLoaded(value: dummyProduct[selectedIndex].quantity));
+    if (dummyProduct[selectedIndex].quantity > 1) {
+      dummyProduct[selectedIndex] = dummyProduct[selectedIndex].copyWith(
+        quantity: dummyProduct[selectedIndex].quantity - 1,
+      );
+      emit(QuantityCounterLoaded(value: dummyProduct[selectedIndex].quantity));
+    }
   }
 }

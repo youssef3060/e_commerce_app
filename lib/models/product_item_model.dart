@@ -1,3 +1,5 @@
+enum ProductSize { S, M, L, XL }
+
 class ProductItemModel {
   final String id;
   final String name;
@@ -8,22 +10,22 @@ class ProductItemModel {
   final String category;
   final double averageRate;
   final int quantity;
+  final ProductSize? size;
 
   ProductItemModel({
     required this.id,
     required this.name,
     required this.imageUrl,
     this.description =
-        '''  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
-Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
-Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        '''Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+
  ''',
     required this.price,
     this.isFavorite = false,
     required this.category,
     this.averageRate = 4.5,
     this.quantity = 1,
+    this.size,
   });
   ProductItemModel copyWith({
     String? id,
@@ -35,6 +37,7 @@ Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deseru
     String? category,
     double? averageRate,
     int? quantity,
+    ProductSize? size,
   }) {
     return ProductItemModel(
       id: id ?? this.id,
@@ -46,6 +49,7 @@ Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deseru
       category: category ?? this.category,
       averageRate: averageRate ?? this.averageRate,
       quantity: quantity ?? this.quantity,
+      size: size ?? this.size,
     );
   }
 }

@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:e_commerce_app/models/product_item_model.dart';
 import 'package:e_commerce_app/utils/app_colors.dart';
 import 'package:e_commerce_app/view/widgets/counter_widgets.dart';
 import 'package:e_commerce_app/view_models/product_details_cubit/product_details_cubit.dart';
@@ -64,6 +65,7 @@ class ProductDetailsPage extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.all(36.0),
                       child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -73,9 +75,10 @@ class ProductDetailsPage extends StatelessWidget {
                                 children: [
                                   Text(
                                     product.name,
-                                    style: Theme.of(
-                                      context,
-                                    ).textTheme.titleLarge,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .titleLarge!
+                                        .copyWith(fontWeight: FontWeight.bold),
                                   ),
                                   Row(
                                     children: [
@@ -127,6 +130,84 @@ class ProductDetailsPage extends StatelessWidget {
                                     return SizedBox.shrink();
                                   }
                                 },
+                              ),
+                            ],
+                          ),
+
+                          SizedBox(height: 20),
+                          Text(
+                            'size',
+                            style: Theme.of(context).textTheme.titleLarge!
+                                .copyWith(fontWeight: FontWeight.bold),
+                          ),
+                          Row(
+                            children: ProductSize.values
+                                .map(
+                                  (size) => InkWell(
+                                    onTap: () {},
+
+                                    highlightColor: Colors.red,
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(4.0),
+                                      child: DecoratedBox(
+                                        decoration: BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          color: AppColors.grey2,
+                                        ),
+                                        child: Padding(
+                                          padding: EdgeInsets.all(12),
+                                          child: Text(
+                                            size.name,
+                                            style: Theme.of(
+                                              context,
+                                            ).textTheme.labelLarge,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                )
+                                .toList(),
+                          ),
+                          const SizedBox(height: 20),
+                          Text(
+                            'Description ',
+                            style: Theme.of(context).textTheme.titleLarge!
+                                .copyWith(fontWeight: FontWeight.bold),
+                          ),
+                          SizedBox(height: 5),
+                          Text(
+                            product.description,
+                            style: Theme.of(context).textTheme.labelLarge!
+                                .copyWith(color: AppColors.grey),
+                          ),
+                          Spacer(),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                '\$${product.price} ',
+                                style: Theme.of(context).textTheme.titleLarge!
+                                    .copyWith(fontWeight: FontWeight.bold),
+                              ),
+                              ElevatedButton.icon(
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: AppColors.primary,
+                                  foregroundColor: AppColors.white,
+                                ),
+                                onPressed: () {},
+                                label: Text(
+                                  'Add To Cart',
+                                  style: Theme.of(context).textTheme.titleLarge!
+                                      .copyWith(
+                                        fontWeight: FontWeight.bold,
+                                        color: AppColors.white,
+                                      ),
+                                ),
+                                icon: Icon(
+                                  Icons.shopping_cart,
+                                  color: AppColors.white,
+                                ),
                               ),
                             ],
                           ),
