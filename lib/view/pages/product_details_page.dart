@@ -12,8 +12,9 @@ class ProductDetailsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    final cubit = BlocProvider.of<ProductDetailsCubit>(context);
     return BlocBuilder<ProductDetailsCubit, ProductDetailsState>(
-      bloc: BlocProvider.of<ProductDetailsCubit>(context),
+      bloc: cubit,
       buildWhen: (previous, current) =>
           current is ProductDetailsLoading ||
           current is ProductDetailsLoaded ||
@@ -104,9 +105,7 @@ class ProductDetailsPage extends StatelessWidget {
                                 ProductDetailsCubit,
                                 ProductDetailsState
                               >(
-                                bloc: BlocProvider.of<ProductDetailsCubit>(
-                                  context,
-                                ),
+                                bloc: cubit,
                                 buildWhen: (previous, current) =>
                                     current is QuantityCounterLoaded ||
                                     current is ProductDetailsLoaded,
@@ -115,19 +114,13 @@ class ProductDetailsPage extends StatelessWidget {
                                     return Counter(
                                       value: state.value,
                                       productId: product.id,
-                                      cubit:
-                                          BlocProvider.of<ProductDetailsCubit>(
-                                            context,
-                                          ),
+                                      cubit: cubit,
                                     );
                                   } else if (state is ProductDetailsLoaded) {
                                     return Counter(
-                                      value: state.product.quantity,
+                                      value: 1,
                                       productId: product.id,
-                                      cubit:
-                                          BlocProvider.of<ProductDetailsCubit>(
-                                            context,
-                                          ),
+                                      cubit: cubit,
                                     );
                                   } else {
                                     return SizedBox.shrink();
@@ -144,7 +137,7 @@ class ProductDetailsPage extends StatelessWidget {
                                 .copyWith(fontWeight: FontWeight.bold),
                           ),
                           BlocBuilder<ProductDetailsCubit, ProductDetailsState>(
-                            bloc: BlocProvider.of<ProductDetailsCubit>(context),
+                            bloc: cubit,
                             buildWhen: (previous, current) =>
                                 current is SizeSelected ||
                                 current is ProductDetailsLoaded,
@@ -154,9 +147,8 @@ class ProductDetailsPage extends StatelessWidget {
                                     .map(
                                       (size) => InkWell(
                                         onTap: () {
-                                          BlocProvider.of<ProductDetailsCubit>(
-                                            context,
-                                          ).selectSize(size);
+                                          if (state is SizeSelected) {}
+                                          cubit.selectSize(size);
                                         },
 
                                         highlightColor: Colors.red,
@@ -222,9 +214,7 @@ class ProductDetailsPage extends StatelessWidget {
                                 ProductDetailsCubit,
                                 ProductDetailsState
                               >(
-                                bloc: BlocProvider.of<ProductDetailsCubit>(
-                                  context,
-                                ),
+                                bloc: cubit,
                                 buildWhen: (previous, current) =>
                                     current is ProductAddedToCart ||
                                     current is ProductAddingToCart,
@@ -254,9 +244,17 @@ class ProductDetailsPage extends StatelessWidget {
                                       foregroundColor: AppColors.white,
                                     ),
                                     onPressed: () {
-                                      BlocProvider.of<ProductDetailsCubit>(
-                                        context,
-                                      ).addToCart(product.id);
+                                      if (cubit.selectedSize != null) {
+                                        cubit.addToCart(product.id);
+                                      } else {
+                                        ScaffoldMessenger.of(
+                                          context,
+                                        ).showSnackBar(
+                                          SnackBar(
+                                            content: Text('Please Choose size'),
+                                          ),
+                                        );
+                                      }
                                     },
                                     label: Text(
                                       'Add To Cart',

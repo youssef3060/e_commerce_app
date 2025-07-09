@@ -7,8 +7,8 @@ part 'product_details_state.dart';
 class ProductDetailsCubit extends Cubit<ProductDetailsState> {
   ProductDetailsCubit() : super(ProductDetailsInitial());
 
-  late ProductSize selectedSize;
-  late int quantity;
+  ProductSize? selectedSize;
+  int quantity = 1;
 
   getProductDetails(String id) {
     emit(ProductDetailsLoading());
@@ -19,15 +19,9 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
   }
 
   void incrementCounter(String productId) {
-    final selectedIndex = dummyProduct.indexWhere(
-      (item) => item.id == productId,
-    );
-    dummyProduct[selectedIndex] = dummyProduct[selectedIndex].copyWith(
-      quantity: dummyProduct[selectedIndex].quantity + 1,
-    );
-    quantity = dummyProduct[selectedIndex].quantity;
+    quantity++;
 
-    emit(QuantityCounterLoaded(value: dummyProduct[selectedIndex].quantity));
+    emit(QuantityCounterLoaded(value: quantity));
   }
 
   void selectSize(ProductSize size) {
@@ -40,7 +34,7 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
 
     final cartItem = AddToCartModel(
       productId: productId,
-      size: selectedSize,
+      size: selectedSize!,
       quantity: quantity,
     );
     dummyCart.add(cartItem);
@@ -50,15 +44,8 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
   }
 
   void decrementCounter(String productId) {
-    final selectedIndex = dummyProduct.indexWhere(
-      (item) => item.id == productId,
-    );
-    if (dummyProduct[selectedIndex].quantity > 1) {
-      dummyProduct[selectedIndex] = dummyProduct[selectedIndex].copyWith(
-        quantity: dummyProduct[selectedIndex].quantity - 1,
-      );
-      quantity = dummyProduct[selectedIndex].quantity;
-      emit(QuantityCounterLoaded(value: dummyProduct[selectedIndex].quantity));
-    }
+    quantity--;
+
+    emit(QuantityCounterLoaded(value: quantity));
   }
 }

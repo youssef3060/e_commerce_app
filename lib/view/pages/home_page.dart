@@ -24,87 +24,77 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) {
-        final cubit = HomeCubit();
-        cubit.getHomeData();
-
-        return cubit;
-      },
-      child: Scaffold(
-        body: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            child: Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(
-                      children: [
-                        CircleAvatar(
-                          radius: 30,
-                          backgroundImage: NetworkImage(
-                            'https://cdn-icons-png.flaticon.com/512/149/149071.png',
+    return Scaffold(
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    children: [
+                      CircleAvatar(
+                        radius: 30,
+                        backgroundImage: NetworkImage(
+                          'https://cdn-icons-png.flaticon.com/512/149/149071.png',
+                        ),
+                      ),
+                      SizedBox(width: 8),
+                      Row(
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'youssef',
+                                style: Theme.of(context).textTheme.labelLarge,
+                              ),
+                              Text(
+                                'let\'s go shopping',
+                                style: Theme.of(context).textTheme.labelMedium!
+                                    .copyWith(color: Colors.blueGrey),
+                              ),
+                            ],
                           ),
-                        ),
-                        SizedBox(width: 8),
-                        Row(
-                          children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'youssef',
-                                  style: Theme.of(context).textTheme.labelLarge,
-                                ),
-                                Text(
-                                  'let\'s go shopping',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .labelMedium!
-                                      .copyWith(color: Colors.blueGrey),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        IconButton(onPressed: () {}, icon: Icon(Icons.search)),
-                        IconButton(
-                          onPressed: () {},
-                          icon: Icon(Icons.notifications),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-                SizedBox(height: 20),
-
-                TabBar(
-                  unselectedLabelColor: AppColors.grey,
-                  controller: _tapController,
-                  tabs: [
-                    Tab(text: 'Home'),
-                    Tab(text: 'Category'),
-                  ],
-                ),
-
-                SizedBox(height: 20),
-
-                Expanded(
-                  child: TabBarView(
-                    controller: _tapController,
-                    children: [HomeTapView(), CategoryTapView()],
+                        ],
+                      ),
+                    ],
                   ),
-                ),
+                  Row(
+                    children: [
+                      IconButton(onPressed: () {}, icon: Icon(Icons.search)),
+                      IconButton(
+                        onPressed: () {},
+                        icon: Icon(Icons.notifications),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+              SizedBox(height: 20),
 
-                SizedBox(height: 30),
-              ],
-            ),
+              TabBar(
+                unselectedLabelColor: AppColors.grey,
+                controller: _tapController,
+                tabs: [
+                  Tab(text: 'Home'),
+                  Tab(text: 'Category'),
+                ],
+              ),
+
+              SizedBox(height: 20),
+
+              Expanded(
+                child: TabBarView(
+                  controller: _tapController,
+                  children: [HomeTapView(), CategoryTapView()],
+                ),
+              ),
+
+              SizedBox(height: 30),
+            ],
           ),
         ),
       ),

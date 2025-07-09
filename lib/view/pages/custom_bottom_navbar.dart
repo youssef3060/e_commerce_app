@@ -1,8 +1,12 @@
+import 'package:e_commerce_app/view/pages/cart_page.dart';
 import 'package:e_commerce_app/view/pages/favorit_page.dart';
 import 'package:e_commerce_app/view/pages/home_page.dart';
-import 'package:e_commerce_app/view/pages/my_order_page.dart';
+
 import 'package:e_commerce_app/view/pages/profile_page.dart';
+import 'package:e_commerce_app/view_models/cart_cubit/cart_cubit.dart';
+import 'package:e_commerce_app/view_models/home_cubit/home_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 
 class CustomBottomNavbar extends StatefulWidget {
@@ -13,30 +17,45 @@ class CustomBottomNavbar extends StatefulWidget {
 }
 
 class _CustomBottomNavbarState extends State<CustomBottomNavbar> {
-    late final PersistentTabController _controller;
+  late final PersistentTabController _controller;
   @override
   void initState() {
     super.initState();
     _controller = PersistentTabController(initialIndex: 0);
   }
 
-   final List<PersistentTabConfig> _tabs = [
+  final List<PersistentTabConfig> _tabs = [
     PersistentTabConfig(
-      screen: HomePage(),
+      screen: BlocProvider(
+        create: (context) {
+          final cubit = HomeCubit();
+          cubit.getHomeData();
+
+          return cubit;
+        },
+        child: HomePage(),
+      ),
       item: ItemConfig(
         icon: Icon(Icons.home),
         title: "Home",
         activeColorSecondary: Colors.blue,
-        inactiveBackgroundColor: Colors.greenAccent
+        inactiveBackgroundColor: Colors.greenAccent,
       ),
     ),
     PersistentTabConfig(
-      screen: MyOrderPage(),
+      screen: BlocProvider(
+        create: (context) {
+          final cubit = CartCubit();
+          cubit.getCartItems();
+          return cubit;
+        },
+        child: CartPage(),
+      ),
       item: ItemConfig(
         icon: Icon(Icons.shopping_cart),
-        title: "Orders",
-         activeColorSecondary: Colors.blue,
-        inactiveBackgroundColor: Colors.greenAccent
+        title: "Cart",
+        activeColorSecondary: Colors.blue,
+        inactiveBackgroundColor: Colors.greenAccent,
       ),
     ),
     PersistentTabConfig(
@@ -44,8 +63,8 @@ class _CustomBottomNavbarState extends State<CustomBottomNavbar> {
       item: ItemConfig(
         icon: Icon(Icons.favorite),
         title: "Favorites",
-         activeColorSecondary: Colors.blue,
-        inactiveBackgroundColor: Colors.greenAccent
+        activeColorSecondary: Colors.blue,
+        inactiveBackgroundColor: Colors.greenAccent,
       ),
     ),
     PersistentTabConfig(
@@ -53,23 +72,19 @@ class _CustomBottomNavbarState extends State<CustomBottomNavbar> {
       item: ItemConfig(
         icon: Icon(Icons.person),
         title: "Profile",
-         activeColorSecondary: Colors.blue,
-        inactiveBackgroundColor: Colors.greenAccent
+        activeColorSecondary: Colors.blue,
+        inactiveBackgroundColor: Colors.greenAccent,
       ),
     ),
   ];
 
-  
   @override
   Widget build(BuildContext context) {
-     return PersistentTabView(
+    return PersistentTabView(
       controller: _controller,
       tabs: _tabs,
-      navBarBuilder: (navBarConfig) => Style6BottomNavBar(
-        navBarConfig: navBarConfig,
-        
-      ),
-      
+      navBarBuilder: (navBarConfig) =>
+          Style6BottomNavBar(navBarConfig: navBarConfig),
     );
   }
 }
