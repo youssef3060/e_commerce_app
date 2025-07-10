@@ -18,12 +18,6 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
     });
   }
 
-  void incrementCounter(String productId) {
-    quantity++;
-
-    emit(QuantityCounterLoaded(value: quantity));
-  }
-
   void selectSize(ProductSize size) {
     selectedSize = size;
     emit(SizeSelected(size: size));
@@ -33,9 +27,10 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
     emit(ProductAddingToCart());
 
     final cartItem = AddToCartModel(
-      productId: productId,
+      product: dummyProduct.firstWhere((item) => item.id == productId),
       size: selectedSize!,
       quantity: quantity,
+      id: DateTime.now().toIso8601String(),
     );
     dummyCart.add(cartItem);
     Future.delayed(Duration(seconds: 1), () {
@@ -45,6 +40,12 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
 
   void decrementCounter(String productId) {
     quantity--;
+
+    emit(QuantityCounterLoaded(value: quantity));
+  }
+
+  void incrementCounter(String productId) {
+    quantity++;
 
     emit(QuantityCounterLoaded(value: quantity));
   }

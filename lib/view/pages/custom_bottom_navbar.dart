@@ -81,6 +81,7 @@ class _CustomBottomNavbarState extends State<CustomBottomNavbar> {
   @override
   Widget build(BuildContext context) {
     return PersistentTabView(
+      stateManagement: true,
       controller: _controller,
       tabs: _tabs,
       navBarBuilder: (navBarConfig) =>

@@ -17,6 +17,9 @@ class CartPage extends StatelessWidget {
             return const Center(child: CircularProgressIndicator());
           } else if (state is CartLoaded) {
             final cartItems = state.cartItems;
+            if (cartItems.isEmpty) {
+              return Center(child: Text("No items in Your Cart"));
+            }
             return SingleChildScrollView(
               child: Column(
                 children: [

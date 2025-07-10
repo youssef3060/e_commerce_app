@@ -5,10 +5,22 @@ part 'cart_state.dart';
 
 class CartCubit extends Cubit<CartState> {
   CartCubit() : super(CartInitial());
-
+  int quantity = 1;
   void getCartItems() {
     emit(CartLoading());
 
     emit(CartLoaded(cartItems: dummyCart));
+  }
+
+  void decrementCounter(String productId) {
+    quantity--;
+
+    emit(QuantityCounterLoaded(value: quantity));
+  }
+
+  void incrementCounter(String productId) {
+    quantity++;
+
+    emit(QuantityCounterLoaded(value: quantity));
   }
 }
