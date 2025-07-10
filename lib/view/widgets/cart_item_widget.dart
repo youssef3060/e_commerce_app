@@ -61,7 +61,7 @@ class CartItemWidget extends StatelessWidget {
                           );
                         }
                         return Counter(
-                          value: 1,
+                          value: cartItem.quantity,
                           productId: cartItem.product.id,
                           cubit: cubit,
                         );
@@ -70,9 +70,11 @@ class CartItemWidget extends StatelessWidget {
 
                     Text(
                       '\$${cartItem.product.price}',
-                      style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                        fontWeight: FontWeight.bold,
-                      ),
+                      style: Theme.of(context).textTheme.headlineSmall!
+                          .copyWith(
+                            fontWeight: FontWeight.bold,
+                            color: Theme.of(context).primaryColor,
+                          ),
                     ),
                   ],
                 ),

@@ -23,7 +23,8 @@ class CartPage extends StatelessWidget {
             return SingleChildScrollView(
               child: Column(
                 children: [
-                  ListView.builder(
+                  ListView.separated(
+                    separatorBuilder: (context, index) => Divider(),
                     shrinkWrap: true,
                     physics: NeverScrollableScrollPhysics(),
                     itemCount: cartItems.length,
