@@ -37,8 +37,9 @@ class ProductDetailsPage extends StatelessWidget {
                 IconButton(onPressed: () {}, icon: Icon(Icons.favorite_border)),
               ],
             ),
-
-            body: Stack(
+          
+            body:
+             Stack(
               children: [
                 Container(
                   height: size.height * .45,
@@ -67,7 +68,7 @@ class ProductDetailsPage extends StatelessWidget {
                       ),
                     ),
                     child: Padding(
-                      padding: const EdgeInsets.all(25.0),
+                      padding: const EdgeInsets.all(15.0),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -131,7 +132,7 @@ class ProductDetailsPage extends StatelessWidget {
                               ),
                             ],
                           ),
-            
+                         
                           SizedBox(height: 20),
                           Text(
                             'size',
@@ -152,7 +153,7 @@ class ProductDetailsPage extends StatelessWidget {
                                           if (state is SizeSelected) {}
                                           cubit.selectSize(size);
                                         },
-            
+                         
                                         highlightColor: Colors.red,
                                         child: Padding(
                                           padding: const EdgeInsets.all(4.0),
@@ -283,7 +284,7 @@ class ProductDetailsPage extends StatelessWidget {
                   ),
                 ),
               ],
-            ),
+                         ),
           );
         } else {
           return const Scaffold(

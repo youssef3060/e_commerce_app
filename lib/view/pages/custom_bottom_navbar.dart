@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:e_commerce_app/view/pages/cart_page.dart';
 import 'package:e_commerce_app/view/pages/favorit_page.dart';
 import 'package:e_commerce_app/view/pages/home_page.dart';
@@ -18,6 +20,7 @@ class CustomBottomNavbar extends StatefulWidget {
 
 class _CustomBottomNavbarState extends State<CustomBottomNavbar> {
   late final PersistentTabController _controller;
+  int _currentIndex = 0;
   @override
   void initState() {
     super.initState();
@@ -81,31 +84,52 @@ class _CustomBottomNavbarState extends State<CustomBottomNavbar> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: CircleAvatar(
-          radius: 30,
-          backgroundImage: NetworkImage(
-            'https://cdn-icons-png.flaticon.com/512/149/149071.png',
-          ),
-        ),
-        title: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text('youssef', style: Theme.of(context).textTheme.labelLarge),
-            Text(
-              'let\'s go shopping',
-              style: Theme.of(
-                context,
-              ).textTheme.labelMedium!.copyWith(color: Colors.blueGrey),
-            ),
-          ],
-        ),
-        actions: [
-          IconButton(onPressed: () {}, icon: Icon(Icons.search)),
-          IconButton(onPressed: () {}, icon: Icon(Icons.notifications)),
-        ],
-      ),
+      appBar: _currentIndex <= 3 ?
+           AppBar(
+              centerTitle: true,
+              leading: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: CircleAvatar(
+                  radius: 30,
+                  backgroundImage: NetworkImage(
+                    'https://cdn-icons-png.flaticon.com/512/149/149071.png',
+                  ),
+                ),
+              ),
+              title: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('Youssef', style: Theme.of(context).textTheme.labelLarge),
+                  Text(
+                    'Let\'s Go shopping',
+                    style: Theme.of(
+                      context,
+                    ).textTheme.labelMedium!.copyWith(color: Colors.blueGrey),
+                  ),
+                ],
+              ),
+              actions: [
+                if (_currentIndex == 0)... [// Show only on HomePage
+                  Row(
+                    children: [
+                      IconButton(onPressed: () {}, icon: Icon(Icons.search)),
+                      IconButton(onPressed: () {}, icon: Icon(Icons.notifications)),
+                    ],
+                  )]
+                  else if 
+  (_currentIndex == 1) ... [ // Show only on CartPage
+            IconButton(onPressed: () {}, icon: Icon(Icons.shopping_bag)),]
+            else...[// Show on other pages
+              ]
+            
+      
+  ]):null,
       body: PersistentTabView(
+        onTabChanged: (index) {
+          setState(() {
+            _currentIndex = index;
+          });
+        },
         stateManagement: true,
         controller: _controller,
         tabs: _tabs,
