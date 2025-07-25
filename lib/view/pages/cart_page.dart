@@ -8,41 +8,43 @@ class CartPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: BlocBuilder<CartCubit, CartState>(
-        bloc: BlocProvider.of<CartCubit>(context),
+    return BlocBuilder<CartCubit, CartState>(
+      bloc: BlocProvider.of<CartCubit>(context),
+      buildWhen: (previous, current) =>
+          current is CartLoaded ||
+          current is CartError ||
+          current is CartLoading,
 
-        builder: (context, state) {
-          if (state is CartLoading) {
-            return const Center(child: CircularProgressIndicator());
-          } else if (state is CartLoaded) {
-            final cartItems = state.cartItems;
-            if (cartItems.isEmpty) {
-              return Center(child: Text("No items in Your Cart"));
-            }
-            return SingleChildScrollView(
-              child: Column(
-                children: [
-                  ListView.separated(
-                    separatorBuilder: (context, index) => Divider(),
-                    shrinkWrap: true,
-                    physics: NeverScrollableScrollPhysics(),
-                    itemCount: cartItems.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      final cartItem = cartItems[index];
-                      return CartItemWidget(cartItem: cartItem);
-                    },
-                  ),
-                ],
-              ),
-            );
-          } else if (state is CartError) {
-            return Center(child: Text(state.message));
-          } else {
-            return Center(child: Text('something went wrong !'));
+      builder: (context, state) {
+        if (state is CartLoading) {
+          return const Center(child: CircularProgressIndicator());
+        } else if (state is CartLoaded) {
+          final cartItems = state.cartItems;
+          if (cartItems.isEmpty) {
+            return Center(child: Text("No items in Your Cart"));
           }
-        },
-      ),
+          return SingleChildScrollView(
+            child: Column(
+              children: [
+                ListView.separated(
+                  separatorBuilder: (context, index) => Divider(),
+                  shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
+                  itemCount: cartItems.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    final cartItem = cartItems[index];
+                    return CartItemWidget(cartItem: cartItem);
+                  },
+                ),
+              ],
+            ),
+          );
+        } else if (state is CartError) {
+          return Center(child: Text(state.message));
+        } else {
+          return Center(child: Text('something went wrong !'));
+        }
+      },
     );
   }
 }

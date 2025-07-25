@@ -80,12 +80,38 @@ class _CustomBottomNavbarState extends State<CustomBottomNavbar> {
 
   @override
   Widget build(BuildContext context) {
-    return PersistentTabView(
-      stateManagement: true,
-      controller: _controller,
-      tabs: _tabs,
-      navBarBuilder: (navBarConfig) =>
-          Style6BottomNavBar(navBarConfig: navBarConfig),
+    return Scaffold(
+      appBar: AppBar(
+        leading: CircleAvatar(
+          radius: 30,
+          backgroundImage: NetworkImage(
+            'https://cdn-icons-png.flaticon.com/512/149/149071.png',
+          ),
+        ),
+        title: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text('youssef', style: Theme.of(context).textTheme.labelLarge),
+            Text(
+              'let\'s go shopping',
+              style: Theme.of(
+                context,
+              ).textTheme.labelMedium!.copyWith(color: Colors.blueGrey),
+            ),
+          ],
+        ),
+        actions: [
+          IconButton(onPressed: () {}, icon: Icon(Icons.search)),
+          IconButton(onPressed: () {}, icon: Icon(Icons.notifications)),
+        ],
+      ),
+      body: PersistentTabView(
+        stateManagement: true,
+        controller: _controller,
+        tabs: _tabs,
+        navBarBuilder: (navBarConfig) =>
+            Style6BottomNavBar(navBarConfig: navBarConfig),
+      ),
     );
   }
 }

@@ -53,7 +53,8 @@ class CartItemWidget extends StatelessWidget {
                       buildWhen: (previous, current) =>
                           current is QuantityCounterLoaded,
                       builder: (context, state) {
-                        if (state is QuantityCounterLoaded) {
+                        if (state is QuantityCounterLoaded  &&
+                            state.productId == cartItem.product.id) {
                           return Counter(
                             value: state.value,
                             productId: cartItem.product.id,
@@ -64,6 +65,7 @@ class CartItemWidget extends StatelessWidget {
                           value: cartItem.quantity,
                           productId: cartItem.product.id,
                           cubit: cubit,
+                          initialValue: cartItem.quantity,
                         );
                       },
                     ),

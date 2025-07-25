@@ -1,5 +1,6 @@
 import 'package:e_commerce_app/models/add_to_cart_model.dart';
 import 'package:e_commerce_app/models/product_item_model.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'product_details_state.dart';
@@ -32,6 +33,7 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
       quantity: quantity,
       id: DateTime.now().toIso8601String(),
     );
+    debugPrint("added to cart ##########################################");
     dummyCart.add(cartItem);
     Future.delayed(Duration(seconds: 1), () {
       emit(ProductAddedToCart(productId: productId));

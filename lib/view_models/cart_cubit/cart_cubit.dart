@@ -12,15 +12,25 @@ class CartCubit extends Cubit<CartState> {
     emit(CartLoaded(cartItems: dummyCart));
   }
 
-  void decrementCounter(String productId) {
-    quantity--;
+  void decrementCounter(String productId,   [int? initialValue]) {
+    if (initialValue != null ) {
+     quantity = initialValue ;
+    }
+    if (quantity >= 1) {
+      quantity--;
+    
+    }
+    
 
-    emit(QuantityCounterLoaded(value: quantity));
+    emit(QuantityCounterLoaded(value: quantity , productId: productId));
   }
 
-  void incrementCounter(String productId) {
-    quantity++;
+  void incrementCounter(String productId,  [int? initialValue]) {
+      if (initialValue != null ) {
+     quantity = initialValue ; }
 
-    emit(QuantityCounterLoaded(value: quantity));
+     quantity++;
+
+    emit(QuantityCounterLoaded(value: quantity , productId: productId));
   }
 }
