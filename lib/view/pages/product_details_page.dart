@@ -68,41 +68,39 @@ class ProductDetailsPage extends StatelessWidget {
                       ),
                     ),
                     child: Padding(
-                      padding: const EdgeInsets.all(15.0),
+                      padding: const EdgeInsets.all(10.0),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              SingleChildScrollView(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      product.name,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .titleLarge!
-                                          .copyWith(fontWeight: FontWeight.bold),
-                                    ),
-                                    Row(
-                                      children: [
-                                        Icon(
-                                          Icons.star,
-                                          color: AppColors.yellow,
-                                          size: 25,
-                                        ),
-                                        Text(
-                                          '${product.averageRate}',
-                                          style: Theme.of(
-                                            context,
-                                          ).textTheme.titleMedium,
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    product.name,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .titleLarge!
+                                        .copyWith(fontWeight: FontWeight.bold),
+                                  ),
+                                  Row(
+                                    children: [
+                                      Icon(
+                                        Icons.star,
+                                        color: AppColors.yellow,
+                                        size: 25,
+                                      ),
+                                      Text(
+                                        '${product.averageRate}',
+                                        style: Theme.of(
+                                          context,
+                                        ).textTheme.titleMedium,
+                                      ),
+                                    ],
+                                  ),
+                                ],
                               ),
                               BlocBuilder<
                                 ProductDetailsCubit,
@@ -133,7 +131,7 @@ class ProductDetailsPage extends StatelessWidget {
                             ],
                           ),
                          
-                          SizedBox(height: 20),
+                          SizedBox(height: 10),
                           Text(
                             'size',
                             style: Theme.of(context).textTheme.titleLarge!
@@ -204,7 +202,7 @@ class ProductDetailsPage extends StatelessWidget {
                             style: Theme.of(context).textTheme.labelLarge!
                                 .copyWith(color: AppColors.grey),
                           ),
-                          Spacer(),
+                          // Spacer(),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [

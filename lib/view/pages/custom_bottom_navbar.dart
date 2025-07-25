@@ -84,7 +84,7 @@ class _CustomBottomNavbarState extends State<CustomBottomNavbar> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _currentIndex <= 3 ?
+      appBar: 
            AppBar(
               centerTitle: true,
               leading: Padding(
@@ -123,7 +123,7 @@ class _CustomBottomNavbarState extends State<CustomBottomNavbar> {
               ]
             
       
-  ]):null,
+  ]),
       body: PersistentTabView(
         onTabChanged: (index) {
           setState(() {
